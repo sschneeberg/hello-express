@@ -1,15 +1,32 @@
 const express = require('express');
 const app = express();
 
-//set home route /
+//set home route
+/* WITHOUT EJS
 app.get('/', function(req, res) {
-    res.send('hello world');
+    res.sendFile(`${__dirname}/views/index.html`);
+    res.status(200);
 });
 
 app.get('/about', (req, res) => {
-    res.send('About page')
-})
+    res.sendFile(`${__dirname}/views/about.html`);
+});
+app.get('/secret', (req, res) => {
+    res.sendFile(`${__dirname}/views/secrets.html`);
+});
+*/
+//WITH EJS
+app.set('view engine', 'ejs');
+app.get('/', function(req, res) {
+    res.render(`index`);
+});
 
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+app.get('/secret', (req, res) => {
+    res.render('secrets');
+});
 //listen for a port
 //to see this opne localhost:8000/ in chromw
-app.listen(8000);
+app.listen(8000, () => console.log('starting server'));
