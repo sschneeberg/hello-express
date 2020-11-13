@@ -18,14 +18,19 @@ app.get('/secret', (req, res) => {
 //WITH EJS
 app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
-    res.render(`index`);
+    res.render('index', { myVar: 'wow' });
 });
 
 app.get('/about', (req, res) => {
     res.render('about');
 });
-app.get('/secret', (req, res) => {
-    res.render('secrets');
+
+app.get('/secrets/:date', (req, res) => {
+    res.render('secrets', { date: req.params.date });
+});
+
+app.get('/secrets', (req, res) => {
+    res.render('secrets', { date: 'today' });
 });
 //listen for a port
 //to see this opne localhost:8000/ in chromw
